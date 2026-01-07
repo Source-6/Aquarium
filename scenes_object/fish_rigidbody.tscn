@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvoph2p8t4tdl"]
+
+[ext_resource type="Script" uid="uid://doi5r8353r6w3" path="res://fishbehavior.gd" id="1_ua60t"]
+[ext_resource type="Texture2D" uid="uid://cqeayh8jiejgs" path="res://assets/fishAnim_0001.png" id="2_h40vn"]
+[ext_resource type="Texture2D" uid="uid://8dlrudumgt50" path="res://assets/fishAnim_0002.png" id="3_xgbb6"]
+[ext_resource type="Texture2D" uid="uid://bgse2k7e5j5rt" path="res://assets/bubble.png" id="4_xgbb6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_epypp"]
+friction = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8jh4s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h40vn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xgbb6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgbb6"]
+atlas = ExtResource("4_xgbb6")
+region = Rect2(4.750576, 4.6628532, 4.6147957, 5.0343246)
+
+[node name="MediumFish" type="RigidBody2D"]
+collision_mask = 0
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_epypp")
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp_mode = 1
+script = ExtResource("1_ua60t")
+prefered_velocity = Vector2(35, 0)
+maxVel = 35
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0hol4")
+
+[node name="FishVisual" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8jh4s")
+autoplay = "default"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="FishVisual"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-3, -4)
+emitting = false
+amount = 4
+texture = SubResource("AtlasTexture_xgbb6")
+lifetime = 0.55
+one_shot = true
+speed_scale = 0.3
+explosiveness = 0.68
+randomness = 0.59
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, -500)
+tangential_accel_min = -50.0
+tangential_accel_max = 50.0
+scale_amount_max = 1.5
+
+[connection signal="input_event" from="." to="." method="_on_rigid_body_2d_input_event"]
+[connection signal="screen_exited" from="FishVisual/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

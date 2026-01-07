@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsp5wte0qs157"]
+
+[ext_resource type="Texture2D" uid="uid://bx864s7mvtu60" path="res://assets/backgroundAquarium.png" id="1_0e48y"]
+[ext_resource type="PackedScene" uid="uid://bvoph2p8t4tdl" path="res://scenes_object/fish_rigidbody.tscn" id="2_0e48y"]
+[ext_resource type="PackedScene" uid="uid://cv5w0leu4whay" path="res://scenes_object/small_fish.tscn" id="2_epypp"]
+[ext_resource type="PackedScene" uid="uid://cmegqgjmby1qs" path="res://scenes_object/seaweed.tscn" id="4_0hol4"]
+[ext_resource type="PackedScene" uid="uid://c5nef0gc22vo" path="res://scenes_object/BigSeaweed.tscn" id="5_q6r6c"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_0e48y")
+metadata/_edit_use_anchors_ = true
+
+[node name="SmallFish" parent="." instance=ExtResource("2_epypp")]
+position = Vector2(254, 127)
+
+[node name="SmallFish2" parent="." instance=ExtResource("2_epypp")]
+position = Vector2(97, 36)
+
+[node name="MediumFish" parent="." instance=ExtResource("2_0e48y")]
+position = Vector2(93, 146)
+
+[node name="MediumFish2" parent="." instance=ExtResource("2_0e48y")]
+position = Vector2(188, 71)
+
+[node name="MediumFish3" parent="." instance=ExtResource("2_0e48y")]
+position = Vector2(257, 28)
+
+[node name="Seaweed" parent="." instance=ExtResource("4_0hol4")]
+position = Vector2(37, 155)
+
+[node name="BigSeaweed" parent="." instance=ExtResource("5_q6r6c")]
+position = Vector2(202, 139)

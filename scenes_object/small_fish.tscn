@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://cv5w0leu4whay"]
+
+[ext_resource type="Script" uid="uid://o8g5f11asuvb" path="res://rigid_body_2d_4.gd" id="1_0m5o2"]
+[ext_resource type="Texture2D" uid="uid://hor4hfdjq5jm" path="res://assets/fishsmallAnim_0001.png" id="2_4baht"]
+[ext_resource type="Texture2D" uid="uid://cbh85bbdw2oes" path="res://assets/fishsmallAnim_0002.png" id="3_oh2b1"]
+[ext_resource type="Texture2D" uid="uid://bgse2k7e5j5rt" path="res://assets/bubble.png" id="4_4baht"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kdubu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d21ai"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rj586"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4baht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_oh2b1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh2b1"]
+atlas = ExtResource("4_4baht")
+region = Rect2(4.750576, 4.6628532, 4.6147957, 5.0343246)
+
+[node name="SmallFish" type="RigidBody2D"]
+collision_mask = 0
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_kdubu")
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_0m5o2")
+prefered_velocity = Vector2(20, 0)
+maxVel = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_d21ai")
+debug_color = Color(0.91596025, 0.14962396, 0.6124887, 0.41960785)
+
+[node name="FishVisual" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rj586")
+autoplay = "default"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="FishVisual"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-3, -4)
+emitting = false
+amount = 4
+texture = SubResource("AtlasTexture_oh2b1")
+lifetime = 0.55
+one_shot = true
+speed_scale = 0.3
+explosiveness = 0.68
+randomness = 0.59
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector2(0, -500)
+tangential_accel_min = -50.0
+tangential_accel_max = 50.0
+scale_amount_max = 1.5
+
+[connection signal="input_event" from="." to="." method="_on_rigid_body_2d_input_event"]
+[connection signal="screen_exited" from="FishVisual/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
