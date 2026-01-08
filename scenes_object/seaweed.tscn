@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cmegqgjmby1qs"]
 
 [ext_resource type="Script" uid="uid://dybsuhxrifxme" path="res://seaweed.gd" id="1_6e0ne"]
-[ext_resource type="Texture2D" uid="uid://x2psqnxi7dno" path="res://assets/algueAnim_0001.png" id="2_qebxa"]
-[ext_resource type="Texture2D" uid="uid://c8fxi4o8lsajs" path="res://assets/algueAnim_0002.png" id="3_81nd0"]
+[ext_resource type="Texture2D" uid="uid://dt5n4axq3sbhd" path="res://assets/algue_0001.png" id="2_6e0ne"]
+[ext_resource type="Texture2D" uid="uid://h70p171xphf1" path="res://assets/algue_0002.png" id="3_qebxa"]
 [ext_resource type="Texture2D" uid="uid://bgse2k7e5j5rt" path="res://assets/bubble.png" id="4_im7ec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d21ai"]
@@ -11,10 +11,10 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_qebxa")
+"texture": ExtResource("2_6e0ne")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_81nd0")
+"texture": ExtResource("3_qebxa")
 }],
 "loop": true,
 "name": &"default",
@@ -39,7 +39,7 @@ frame_progress = 0.6535915
 [node name="Timer" type="Timer" parent="."]
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(1, 6)
+position = Vector2(-3, 4)
 emitting = false
 amount = 4
 texture = SubResource("AtlasTexture_rj586")

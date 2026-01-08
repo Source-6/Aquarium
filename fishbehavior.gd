@@ -13,6 +13,7 @@ var startPos = Vector2(250,100)
 var randFlipped 
 @export var prefered_velocity : Vector2
 @export var maxVel : int
+@export var alreadyPressed = false
 
 func _ready() -> void:
 	randFlipped = randi()%2
@@ -35,9 +36,12 @@ func _process( _delta: float) -> void:
 		linear_velocity = lerp(linear_velocity, prefered_velocity,1-pow(.05,_delta))
 
 func _on_rigid_body_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if Input.is_action_just_pressed("moveSomething"):  #if we clicked
+	if Input.is_action_just_pressed("moveSomething") && not alreadyPressed:  #if we clicked
 		linear_velocity += Vector2(impulse*5,0)
 		cpu_particles_2d.emitting = true
+		alreadyPressed = true
+	elif Input.is_action_just_released("moveSomething") && alreadyPressed:
+		alreadyPressed = false 
 
 
 

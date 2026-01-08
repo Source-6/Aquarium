@@ -16,10 +16,13 @@ func _process(delta: float) -> void:
 
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if Input.is_action_just_pressed("moveSomething"):  #if we clicked
+	if Input.is_action_just_pressed("moveSomething") :  #if we clicked
 		animated_sprite_2d.play()
 		timer.start(1)
 		cpu_particles_2d.emitting = true
+		
+
+	
 
 
 func _on_timer_timeout() -> void:

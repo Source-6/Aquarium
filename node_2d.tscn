@@ -1,25 +1,96 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsp5wte0qs157"]
+[gd_scene load_steps=14 format=3 uid="uid://bsp5wte0qs157"]
 
 [ext_resource type="Texture2D" uid="uid://bx864s7mvtu60" path="res://assets/backgroundAquarium.png" id="1_0e48y"]
+[ext_resource type="Script" uid="uid://dpg625lw0ifvf" path="res://canvas_layer.gd" id="1_d21ai"]
 [ext_resource type="PackedScene" uid="uid://bvoph2p8t4tdl" path="res://scenes_object/fish_rigidbody.tscn" id="2_0e48y"]
+[ext_resource type="Shader" uid="uid://dqtc78rt4jm35" path="res://backgroundshader.gdshader" id="2_4d7sh"]
 [ext_resource type="PackedScene" uid="uid://cv5w0leu4whay" path="res://scenes_object/small_fish.tscn" id="2_epypp"]
+[ext_resource type="Shader" uid="uid://j2jmuqesukm7" path="res://shader/groundShader.gdshader" id="3_4d7sh"]
+[ext_resource type="Texture2D" uid="uid://kyxorsmmnhiv" path="res://assets/midgroundAquarium.png" id="3_rj586"]
 [ext_resource type="PackedScene" uid="uid://cmegqgjmby1qs" path="res://scenes_object/seaweed.tscn" id="4_0hol4"]
 [ext_resource type="PackedScene" uid="uid://c5nef0gc22vo" path="res://scenes_object/BigSeaweed.tscn" id="5_q6r6c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ir8iy"]
+shader = ExtResource("3_4d7sh")
+shader_parameter/noise_scale = 1.0
+shader_parameter/distortion_scale_x = 4.694000222965
+shader_parameter/distortion_scale_y = 0.03
+shader_parameter/rainbow_intensity = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4d7sh"]
+size = Vector2(320, 180)
+
+[sub_resource type="Gradient" id="Gradient_d21ai"]
+offsets = PackedFloat32Array(0, 0.16161616, 0.33333334, 0.530303, 0.7222222, 0.8636364, 0.9747475)
+colors = PackedColorArray(0, 0.628303, 0.2546035, 1, 5.7756904e-07, 0.55917513, 0.6575506, 1, 0, 0.38358518, 0.988143, 1, 0.6190205, 0.13391665, 0.9958826, 1, 0.8126849, 0.0636306, 0.60861415, 1, 0.87857944, 0, 0.2756161, 1, 0.6066609, 0.44347912, 0.011031568, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 100
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqns4"]
+shader = ExtResource("2_4d7sh")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.0
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.010000000475
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.010000047974999982
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.02000000095
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
 
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
+script = ExtResource("1_d21ai")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("1_0e48y")
-metadata/_edit_use_anchors_ = true
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ir8iy")
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_rj586")
+
+[node name="Area2D" type="Area2D" parent="CanvasLayer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Area2D"]
+position = Vector2(160, 90)
+shape = SubResource("RectangleShape2D_4d7sh")
+debug_color = Color(0.50633603, 0.48917842, 0.81865984, 0.41960785)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer/Area2D"]
+position = Vector2(177, 18)
+emitting = false
+amount = 100
+lifetime = 1.8
+speed_scale = 1.3
+explosiveness = 0.1
+randomness = 0.25
+emission_shape = 1
+emission_sphere_radius = 9.33
+spread = 180.0
+gravity = Vector2(0, 50)
+initial_velocity_max = 1.0
+angular_velocity_max = 339.51
+orbit_velocity_min = -0.01
+orbit_velocity_max = 0.01
+radial_accel_max = 11.38
+angle_max = 46.8
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+color = Color(0.5019608, 0.2509804, 0.5294118, 1)
+color_ramp = SubResource("Gradient_d21ai")
 
 [node name="SmallFish" parent="." instance=ExtResource("2_epypp")]
 position = Vector2(254, 127)
@@ -29,15 +100,33 @@ position = Vector2(97, 36)
 
 [node name="MediumFish" parent="." instance=ExtResource("2_0e48y")]
 position = Vector2(93, 146)
+alreadyPressed = false
 
 [node name="MediumFish2" parent="." instance=ExtResource("2_0e48y")]
 position = Vector2(188, 71)
+alreadyPressed = false
 
 [node name="MediumFish3" parent="." instance=ExtResource("2_0e48y")]
 position = Vector2(257, 28)
+alreadyPressed = false
 
 [node name="Seaweed" parent="." instance=ExtResource("4_0hol4")]
 position = Vector2(37, 155)
 
 [node name="BigSeaweed" parent="." instance=ExtResource("5_q6r6c")]
 position = Vector2(202, 139)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_hqns4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_0e48y")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="input_event" from="CanvasLayer/Area2D" to="CanvasLayer" method="_on_area_2d_input_event"]

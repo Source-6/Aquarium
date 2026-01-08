@@ -39,7 +39,7 @@ frame_progress = 0.6535915
 [node name="Timer" type="Timer" parent="."]
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(-4, 22)
+position = Vector2(0, 13)
 emitting = false
 amount = 4
 texture = SubResource("AtlasTexture_rj586")
@@ -49,7 +49,7 @@ speed_scale = 0.3
 explosiveness = 0.68
 randomness = 0.59
 emission_shape = 1
-emission_sphere_radius = 12.45
+emission_sphere_radius = 13.49
 gravity = Vector2(0, -500)
 tangential_accel_min = -50.0
 tangential_accel_max = 50.0
