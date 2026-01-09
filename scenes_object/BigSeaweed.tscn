@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5nef0gc22vo"]
+[gd_scene load_steps=10 format=3 uid="uid://c5nef0gc22vo"]
 
 [ext_resource type="Script" uid="uid://dybsuhxrifxme" path="res://seaweed.gd" id="1_jkn2i"]
 [ext_resource type="Texture2D" uid="uid://cfeaunlqtau7f" path="res://assets/bigSeaweed_0001.png" id="2_jkn2i"]
 [ext_resource type="Texture2D" uid="uid://bfxnhu3jynrrf" path="res://assets/bigSeaweed_0002.png" id="3_01g7u"]
 [ext_resource type="Texture2D" uid="uid://bgse2k7e5j5rt" path="res://assets/bubble.png" id="4_401mn"]
+[ext_resource type="AudioStream" uid="uid://bmt73k3xdokql" path="res://assets/Sounds/bubbles.wav" id="5_01g7u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d21ai"]
 
@@ -24,6 +25,11 @@ animations = [{
 [sub_resource type="AtlasTexture" id="AtlasTexture_rj586"]
 atlas = ExtResource("4_401mn")
 region = Rect2(4.750576, 4.6628532, 4.6147957, 5.0343246)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ifl35"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("5_01g7u")
 
 [node name="Seaweed" type="Area2D"]
 script = ExtResource("1_jkn2i")
@@ -54,6 +60,10 @@ gravity = Vector2(0, -500)
 tangential_accel_min = -50.0
 tangential_accel_max = 50.0
 scale_amount_max = 1.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ifl35")
+pitch_scale = 0.6
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

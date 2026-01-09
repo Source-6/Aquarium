@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bvoph2p8t4tdl"]
+[gd_scene load_steps=11 format=3 uid="uid://bvoph2p8t4tdl"]
 
 [ext_resource type="Script" uid="uid://doi5r8353r6w3" path="res://fishbehavior.gd" id="1_ua60t"]
 [ext_resource type="Texture2D" uid="uid://cqeayh8jiejgs" path="res://assets/fishAnim_0001.png" id="2_h40vn"]
 [ext_resource type="Texture2D" uid="uid://8dlrudumgt50" path="res://assets/fishAnim_0002.png" id="3_xgbb6"]
 [ext_resource type="Texture2D" uid="uid://bgse2k7e5j5rt" path="res://assets/bubble.png" id="4_xgbb6"]
+[ext_resource type="AudioStream" uid="uid://bmt73k3xdokql" path="res://assets/Sounds/bubbles.wav" id="5_8jh4s"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_epypp"]
 friction = 0.0
@@ -27,6 +28,11 @@ animations = [{
 [sub_resource type="AtlasTexture" id="AtlasTexture_xgbb6"]
 atlas = ExtResource("4_xgbb6")
 region = Rect2(4.750576, 4.6628532, 4.6147957, 5.0343246)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8jh4s"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("5_8jh4s")
 
 [node name="MediumFish" type="RigidBody2D"]
 collision_mask = 0
@@ -64,6 +70,10 @@ gravity = Vector2(0, -500)
 tangential_accel_min = -50.0
 tangential_accel_max = 50.0
 scale_amount_max = 1.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_8jh4s")
+bus = &"bubbles"
 
 [connection signal="input_event" from="." to="." method="_on_rigid_body_2d_input_event"]
 [connection signal="screen_exited" from="FishVisual/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

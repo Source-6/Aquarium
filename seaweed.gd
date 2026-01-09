@@ -3,6 +3,7 @@ extends Area2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 @onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
+@onready var audioBubblesSeaweed: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +21,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		animated_sprite_2d.play()
 		timer.start(1)
 		cpu_particles_2d.emitting = true
+		audioBubblesSeaweed.play()
 		
 
 	

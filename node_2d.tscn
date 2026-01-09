@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bsp5wte0qs157"]
+[gd_scene load_steps=21 format=3 uid="uid://bsp5wte0qs157"]
 
 [ext_resource type="Texture2D" uid="uid://bx864s7mvtu60" path="res://assets/backgroundAquarium.png" id="1_0e48y"]
 [ext_resource type="Script" uid="uid://dpg625lw0ifvf" path="res://canvas_layer.gd" id="1_d21ai"]
@@ -8,7 +8,13 @@
 [ext_resource type="Shader" uid="uid://j2jmuqesukm7" path="res://shader/groundShader.gdshader" id="3_4d7sh"]
 [ext_resource type="Texture2D" uid="uid://kyxorsmmnhiv" path="res://assets/midgroundAquarium.png" id="3_rj586"]
 [ext_resource type="PackedScene" uid="uid://cmegqgjmby1qs" path="res://scenes_object/seaweed.tscn" id="4_0hol4"]
+[ext_resource type="AudioStream" uid="uid://blt36xpje2efd" path="res://assets/Sounds/knock1.wav" id="4_d2bti"]
 [ext_resource type="PackedScene" uid="uid://c5nef0gc22vo" path="res://scenes_object/BigSeaweed.tscn" id="5_q6r6c"]
+[ext_resource type="AudioStream" uid="uid://dra5d3yblaflh" path="res://assets/Sounds/knock2.wav" id="5_ta5nu"]
+[ext_resource type="AudioStream" uid="uid://6o13f3j6td1" path="res://assets/Sounds/knock3.wav" id="6_flf07"]
+[ext_resource type="AudioStream" uid="uid://b2n8w0wateb4u" path="res://assets/Sounds/knock4.wav" id="7_k73cj"]
+[ext_resource type="AudioStream" uid="uid://dt383v5gu600j" path="res://assets/Sounds/knock5.wav" id="8_rjqkl"]
+[ext_resource type="AudioStream" uid="uid://do2cxdkm31u8s" path="res://assets/Sounds/knock6.wav" id="9_fs4d3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ir8iy"]
 shader = ExtResource("3_4d7sh")
@@ -26,6 +32,15 @@ colors = PackedColorArray(0, 0.628303, 0.2546035, 1, 5.7756904e-07, 0.55917513, 
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7vxoj"]
+streams_count = 6
+stream_0/stream = ExtResource("4_d2bti")
+stream_1/stream = ExtResource("5_ta5nu")
+stream_2/stream = ExtResource("6_flf07")
+stream_3/stream = ExtResource("7_k73cj")
+stream_4/stream = ExtResource("8_rjqkl")
+stream_5/stream = ExtResource("9_fs4d3")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hqns4"]
 shader = ExtResource("2_4d7sh")
 shader_parameter/overlay = false
@@ -42,7 +57,7 @@ shader_parameter/distort_intensity = 0.05
 shader_parameter/noise_opacity = 0.010000000475
 shader_parameter/noise_speed = 5.0
 shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = 0.010000047974999982
+shader_parameter/aberration = 0.01000004797499998
 shader_parameter/brightness = 1.4
 shader_parameter/discolor = false
 shader_parameter/warp_amount = 0.02000000095
@@ -61,6 +76,7 @@ material = SubResource("ShaderMaterial_ir8iy")
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_rj586")
+metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="CanvasLayer"]
 
@@ -92,6 +108,11 @@ scale_amount_max = 1.5
 color = Color(0.5019608, 0.2509804, 0.5294118, 1)
 color_ramp = SubResource("Gradient_d21ai")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CanvasLayer"]
+stream = SubResource("AudioStreamRandomizer_7vxoj")
+volume_db = -10.0
+bus = &"knock"
+
 [node name="SmallFish" parent="." instance=ExtResource("2_epypp")]
 position = Vector2(254, 127)
 
@@ -100,15 +121,12 @@ position = Vector2(97, 36)
 
 [node name="MediumFish" parent="." instance=ExtResource("2_0e48y")]
 position = Vector2(93, 146)
-alreadyPressed = false
 
 [node name="MediumFish2" parent="." instance=ExtResource("2_0e48y")]
 position = Vector2(188, 71)
-alreadyPressed = false
 
 [node name="MediumFish3" parent="." instance=ExtResource("2_0e48y")]
 position = Vector2(257, 28)
-alreadyPressed = false
 
 [node name="Seaweed" parent="." instance=ExtResource("4_0hol4")]
 position = Vector2(37, 155)
@@ -117,6 +135,7 @@ position = Vector2(37, 155)
 position = Vector2(202, 139)
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_hqns4")
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cv5w0leu4whay"]
+[gd_scene load_steps=11 format=3 uid="uid://cv5w0leu4whay"]
 
 [ext_resource type="Script" uid="uid://o8g5f11asuvb" path="res://rigid_body_2d_4.gd" id="1_0m5o2"]
 [ext_resource type="Texture2D" uid="uid://hor4hfdjq5jm" path="res://assets/fishsmallAnim_0001.png" id="2_4baht"]
 [ext_resource type="Texture2D" uid="uid://cbh85bbdw2oes" path="res://assets/fishsmallAnim_0002.png" id="3_oh2b1"]
 [ext_resource type="Texture2D" uid="uid://bgse2k7e5j5rt" path="res://assets/bubble.png" id="4_4baht"]
+[ext_resource type="AudioStream" uid="uid://bmt73k3xdokql" path="res://assets/Sounds/bubbles.wav" id="5_oh2b1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kdubu"]
 
@@ -26,6 +27,11 @@ animations = [{
 [sub_resource type="AtlasTexture" id="AtlasTexture_oh2b1"]
 atlas = ExtResource("4_4baht")
 region = Rect2(4.750576, 4.6628532, 4.6147957, 5.0343246)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oh2b1"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("5_oh2b1")
 
 [node name="SmallFish" type="RigidBody2D"]
 collision_mask = 0
@@ -64,6 +70,10 @@ gravity = Vector2(0, -500)
 tangential_accel_min = -50.0
 tangential_accel_max = 50.0
 scale_amount_max = 1.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_oh2b1")
+bus = &"bubbles"
 
 [connection signal="input_event" from="." to="." method="_on_rigid_body_2d_input_event"]
 [connection signal="screen_exited" from="FishVisual/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

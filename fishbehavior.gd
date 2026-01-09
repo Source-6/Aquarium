@@ -4,6 +4,7 @@ extends RigidBody2D
 @onready var fishVisual: AnimatedSprite2D = $FishVisual
 @onready var medium_fish: Fish = $"."
 @onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
+@onready var audioBubbles: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 
@@ -40,6 +41,7 @@ func _on_rigid_body_2d_input_event(viewport: Node, event: InputEvent, shape_idx:
 		linear_velocity += Vector2(impulse*5,0)
 		cpu_particles_2d.emitting = true
 		alreadyPressed = true
+		audioBubbles.play()
 	elif Input.is_action_just_released("moveSomething") && alreadyPressed:
 		alreadyPressed = false 
 
