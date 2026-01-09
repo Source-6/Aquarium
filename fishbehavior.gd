@@ -15,6 +15,9 @@ var randFlipped
 @export var prefered_velocity : Vector2
 @export var maxVel : int
 @export var alreadyPressed = false
+@export var speed : int
+var destination : Vector2
+var chasing = false
 
 func _ready() -> void:
 	randFlipped = randi()%2
@@ -35,6 +38,21 @@ func _process( _delta: float) -> void:
 	#print(linear_velocity)
 	if linear_velocity.length() > maxVel:
 		linear_velocity = lerp(linear_velocity, prefered_velocity,1-pow(.05,_delta))
+	if Input.is_action_pressed("feed"):
+		chaseFood(_delta)
+
+
+
+func chaseFood(_delta: float) ->void:
+	chasing = true
+	destination = collision_shape_2d.get_global_mouse_position() #add an offset like a circle 
+	if position != destination && chasing:
+		linear_velocity = Vector2(destination-position * speed)
+	if position == destination && Input.is_action_just_released("feed"):
+		chasing = false 
+		linear_velocity = prefered_velocity
+
+	print("destination : ",destination, ", position : ", position)
 
 func _on_rigid_body_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_just_pressed("moveSomething") && not alreadyPressed:  #if we clicked
