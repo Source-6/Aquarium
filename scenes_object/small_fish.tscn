@@ -43,6 +43,7 @@ linear_damp_mode = 1
 script = ExtResource("1_0m5o2")
 prefered_velocity = Vector2(20, 0)
 maxVel = 20
+speed = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_d21ai")

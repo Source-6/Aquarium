@@ -5,6 +5,8 @@ extends CanvasLayer
 @onready var audioKnock: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
+var jellyfish : PackedScene = preload("res://scenes_object/jellyfish_sprite.tscn")
+var currentjellyfishInstance : Node2D 
 var mousePos
 
 
@@ -15,17 +17,25 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	cpu_particles_2d.position = collision_shape_2d.get_global_mouse_position()
+	if Input.is_action_just_released("feed"):
+		cpu_particles_2d.emitting = false
 	
 
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_pressed("feed") :
 		cpu_particles_2d.emitting = true
-		cpu_particles_2d.position = collision_shape_2d.get_global_mouse_position()
+		cpu_particles_2d.position.x = collision_shape_2d.get_global_mouse_position().x
+		cpu_particles_2d.position.y = 5
 	if Input.is_action_just_pressed("moveSomething"):
 		audioKnock.play()
 		
 		
-	if Input.is_action_just_released("feed"):
-		cpu_particles_2d.emitting = false
+
+
+
+func _on_timer_timeout() -> void:
+	if currentjellyfishInstance :
+		currentjellyfishInstance.queue_free()
+	currentjellyfishInstance = jellyfish.instantiate()
+	add_child(currentjellyfishInstance)

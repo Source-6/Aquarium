@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://s15wv6r2k01g"]
+
+[ext_resource type="Texture2D" uid="uid://cterpw2pnbfsy" path="res://assets/jellyfishAnim_0001.png" id="1_fqtv8"]
+[ext_resource type="Texture2D" uid="uid://dxdi1r7up1kn0" path="res://assets/jellyfishAnim_0002.png" id="2_xjlhb"]
+[ext_resource type="Script" uid="uid://d0jb5e1m1jel0" path="res://jellyfish_sprite.gd" id="3_38wcl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7vxoj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fqtv8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_xjlhb")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="jellyfishSprite" type="AnimatedSprite2D"]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_7vxoj")
+animation = &"new_animation"
+script = ExtResource("3_38wcl")
+speedY = 10.0
+speedX = 8.0
